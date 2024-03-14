@@ -19,6 +19,9 @@ def simple_view(request):
 
 class BirthdayListView(LoginRequiredMixin, ListView):
     model = Birthday
+    queryset = Birthday.objects.prefetch_related(
+        'tags'
+    ).select_related('author')
     ordering = 'id'
     paginate_by = 8
 
